@@ -18,7 +18,7 @@ public class Book
     
     public int LibraryId { get; set; }
     [ValidateNever]
-    public Library? Library { get; set; }
-    
+    public Library Library { get; set; }
+    [ValidateNever]
     public ICollection<BookBorrowing> Borrowings { get; set; } = new List<BookBorrowing>();
 }

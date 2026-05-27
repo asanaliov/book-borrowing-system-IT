@@ -1,8 +1,32 @@
-﻿@model TModel
-
+﻿
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h2>Членови</h2>
+<div id="members-table"></div>
+
+@section Scripts {
+    <script>
+        var table = new Tabulator("#members-table", {
+            ajaxURL: "/Member/Api",
+            layout: "fitColumns", //fit columns to width of table (optional)
+            columns: [ //Define Table Columns
+                {title: "FirstName", field: "firstName"},
+                {title: "LastName", field: "lastName", hozAlign: "left"},
+                {title: "Е-адреса", field: "email"},
+                {title: "PhoneNumber", field: "phoneNumber"},
+                {title: "MembershipDate", field: "membershipDate"},
+                {
+                    title: "",
+                    formatter: function (cell){
+                        var id = cell.getRow().getData().id;
+                        return '<a href="/Member/Details/' + id + 
+                            '">Details</a>'
+                    }
+                }
+            ],
+        });
+    </script>
+}

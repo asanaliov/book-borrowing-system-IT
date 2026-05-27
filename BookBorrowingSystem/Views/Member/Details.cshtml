@@ -1,0 +1,76 @@
+@model LibraryApplication.Models.Member
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Member</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MembershipDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MembershipDate)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<h3>Позајмени книги</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>BorrowDate</th>
+        <th>ReturnDate</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var b in Model.Borrowings) {
+        <tr>
+            <td>@b.Book.Title</td>
+            <td>@b.BorrowDate</td>
+            <td>@b.ReturnDate ?? "Не е вратена"</td>
+            <td>
+                @if (b.ReturnDate == null) {
+                    <form asp-action="ReturnBook" asp-route-borrowingId="@b.Id" method="post">
+                        <button type="submit" class="btn btn-warning">Врати</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

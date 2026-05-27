@@ -1,8 +1,16 @@
-﻿@model TModel
-
+﻿@model LibraryApplication.Models.Book
 @{
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<h1 id="book-title">@Model.Title</h1>
+<h4 id="library-name">@Model.Library.Name</h4>
+
+<form asp-action="Borrow" method="post">
+    <input type="hidden" name="bookId" value="@Model.Id"/>
+    <label>Член</label>
+    <select name="memberId" asp-items="ViewBag.Members" class="form-control"></select>
+    <button type="submit" class="btn btn-primary">Borrow</button>
+</form>
+
